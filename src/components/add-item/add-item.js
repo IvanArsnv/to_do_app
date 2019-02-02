@@ -15,27 +15,28 @@ export default class AddItem extends Component {
    
    }
    onSubmit = (e) => {
-       this.props.onItemAdded(this.state.label)
+       e.preventDefault(); // при  этом методе не будет перезагружать отправку формы
+       this.props.onAdded(this.state.label);
+       this.setState({
+           label: ''
+       })
    }
    render() {
         return (
-        <form className="input-group mb-3 item-add-form d-flex"
-            onSubmit={this.onSubmit}
-            >
+        <form className="item-add-form d-flex"
+            onSubmit={this.onSubmit}>
                 <input 
                     type="text" 
                     className="form-control" 
                     onChange={this.onLabelChange}
-                    placeholder="What needs to be done?"/>
+                    placeholder="What needs to be done?"
+                    value={this.state.label }/> 
             
-
-            <div className="input-group-prepend">
                 <button 
-                className="btn btn-primary" 
-                type="button" id="button-addon1" 
-                onClick={() => this.props.onAdded('hello')}>
-                Add</button>
-            </div>
+                className="btn btn-outline-secondary" 
+                >
+                Add </button>
+            
         </form>
         );
    }
